@@ -24,12 +24,6 @@ func main () {
 	fmt.Print("fileName:")
 	fmt.Scanln(&fileName)
 	
-	data, err := os.ReadFile(fileName)
-	if err != nil {
-		log.Fatal(err)
-	}
-	os.Stdout.Write(data)
-	
 	file, err := os.OpenFile(fileName, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
 	if err != nil {
 		fmt.Printf("NO",err)
@@ -37,6 +31,11 @@ func main () {
 	}
 	defer file.Close()
 	
+	data, err := os.ReadFile(fileName)
+	if err != nil {
+		log.Fatal(err)
+	}
+	os.Stdout.Write(data)
 	reader := bufio.NewReader(os.Stdin)
 	
 	fmt.Println("exit结束编辑")
